@@ -3,12 +3,24 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var bodyParser = require('body-parser');
+var MongoStore = require('connect-mongo')(session);
+
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var config = require('./config')();
+
 var app = express();
+
+var sessionStore = new MongoStore({
+    url:config.db,
+    auto_reconnect:true
+},function(){
+    console.log('connect mongodb success...');
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +33,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//Control and store the session
+app.use(session({
+    name:'zsslab',
+    secret:config.cookieSecret,
+    Store: sessionStore,
+    cookie:{maxAge:36000000}
+
+}));
 
 app.use('/', routes);
 app.use('/users', users);
