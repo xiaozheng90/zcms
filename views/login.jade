@@ -1,0 +1,23 @@
+//
+   Created by SS on 2014/11/25.
+doctype html
+html(ng-app='login')
+   head
+      title=title
+
+   body(ng-controller='loginCtl as ctl')
+      h1=title
+      form(ng-submit='ctl.submit()', name='loginForm')
+         input(type='text', ng-model='ctl.user.username', required)
+         input(type='password', ng-model='ctl.user.password', required)
+         input(type='submit', value='提交', ng-disabled="loginForm.$invalid")
+      script(src='../javascripts/angular.min.js')
+      script.
+         angular.module('login',[])
+            .controller('loginCtl',[function(){
+                    var self = this;
+                    console.log('loginCtr begins work!');
+                    self.submit=function(){
+                       console.log('input username:', self.user.username,' ;input password:', self.user.password);
+                    }
+                 }]);

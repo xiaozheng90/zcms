@@ -16,7 +16,7 @@ var config = require('./config')();
 var app = express();
 
 var sessionStore = new MongoStore({
-    url:config.db,
+    url:config.sessionDb,
     auto_reconnect:true
 },function(){
     console.log('connect mongodb success...');
