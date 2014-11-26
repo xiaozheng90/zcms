@@ -10,8 +10,8 @@ var MongoStore = require('connect-mongo')(session);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
 var config = require('./config')();
+
 
 var app = express();
 

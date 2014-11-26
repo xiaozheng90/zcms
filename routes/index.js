@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var dbManage = require("../services/dbManage.js");
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -8,6 +9,7 @@ router.get('/', function(req, res) {
 
 /*登陆页面*/
 router.get('/login',function(req,res){
+  var users = dbManage("user");
   var to={
     title : '登陆'
   };
